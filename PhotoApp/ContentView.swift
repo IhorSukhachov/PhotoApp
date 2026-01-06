@@ -19,7 +19,37 @@ struct ContentView: View {
     @State private var name = ""
     
     var body: some View {
-
+        NavigationStack {
+            List(people) {person in
+                NavigationLink {
+            //        DetailView(person: person)
+                } label: {
+                    HStack {
+                        Image(uiImage: UIImage(data: person.photo) ?? UIImage())
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 50, height: 50)
+                            .clipShape(.capsule)
+                        Text(person.name)
+                            .font(.headline)
+                    }
+                }
+            }
+            .navigationTitle("People")
+            .toolbar {
+                PhotosPicker(selection: $selectedItem, matching: .images) {
+                    Image(systemName: "plus")
+                }
+            }
+            .onChange(of: selectedItem) {
+          //      loadImage()
+            }
+            .alert("Add Name", isPresented: $showingNamePrompt) {
+                TextField("Name", text: $name)
+                Button("Save", action: savePerson)
+                Button("Cancel", role: .cancel){ }
+            }
+        }
     }
 }
 
