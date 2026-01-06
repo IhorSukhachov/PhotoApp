@@ -7,12 +7,24 @@
 
 import SwiftUI
 
+
 struct DetailView: View {
+    let person: Person
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Image(uiImage: UIImage(data: person.photo) ?? UIImage())
+                .resizable()
+                .scaledToFit()
+                .padding()
+        }
+        .navigationTitle(person.name)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 #Preview {
-    DetailView()
+    let person = Person(name: "Test", photo: Data())
+       NavigationStack {
+           DetailView(person: person)
+       }
 }
