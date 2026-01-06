@@ -10,6 +10,14 @@ import SwiftData
 import PhotosUI
 
 struct ContentView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query(sort: \Person.name) private var people: [Person]
+    
+    @State private var selectedItem: PhotosPickerItem?
+    @State private var selectedImageData: Data?
+    @State private var showingNamePrompt: Bool = false
+    @State private var name = ""
+    
     var body: some View {
 
     }
