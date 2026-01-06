@@ -40,6 +40,7 @@ struct ContentView: View {
                 PhotosPicker(selection: $selectedItem, matching: .images) {
                     Image(systemName: "plus")
                 }
+                Button("Delete", action: clearAllPeople)
             }
             .onChange(of: selectedItem) {
                 loadImage()
@@ -49,7 +50,9 @@ struct ContentView: View {
                 Button("Save", action: savePerson)
                 Button("Cancel", role: .cancel){ }
             }
+           
         }
+        
     }
     
     func loadImage() {
@@ -83,6 +86,11 @@ struct ContentView: View {
 //        )
 //        modelContext.insert(test)
 //    }
+    func clearAllPeople() {
+        for person in people {
+            modelContext.delete(person)
+        }
+    }
 }
 
 #Preview {
