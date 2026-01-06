@@ -22,20 +22,20 @@ struct ContentView: View {
         NavigationStack {
             List(people) {person in
                 NavigationLink {
-            //        DetailView(person: person)
+                    DetailView(person: person)
                 } label: {
                     HStack {
                         Image(uiImage: UIImage(data: person.photo) ?? UIImage())
                             .resizable()
-                            .scaledToFill()
+                            .scaledToFit()
                             .frame(width: 50, height: 50)
-                            .clipShape(.capsule)
                         Text(person.name)
                             .font(.headline)
                     }
                 }
             }
             .navigationTitle("People")
+
             .toolbar {
                 PhotosPicker(selection: $selectedItem, matching: .images) {
                     Image(systemName: "plus")
@@ -73,6 +73,16 @@ struct ContentView: View {
             selectedItem = nil
             selectedImageData = nil
         }
+
+//    func insertTestPerson {
+//        guard people.isEmpty else { return }
+//
+//        let test = Person(
+//            name: "Test Person",
+//            photo: Data() // empty image for now
+//        )
+//        modelContext.insert(test)
+//    }
 }
 
 #Preview {
