@@ -42,7 +42,7 @@ struct ContentView: View {
                 }
             }
             .onChange(of: selectedItem) {
-          //      loadImage()
+                loadImage()
             }
             .alert("Add Name", isPresented: $showingNamePrompt) {
                 TextField("Name", text: $name)
@@ -51,6 +51,28 @@ struct ContentView: View {
             }
         }
     }
+    
+    func loadImage() {
+            Task {
+                guard let data = try? await selectedItem?.loadTransferable(type: Data.self) else {
+                    return
+                }
+
+                selectedImageData = data
+                name = ""
+                showingNamePrompt = true
+            }
+        }
+    
+    func savePerson() {
+            guard let imageData = selectedImageData else { return }
+
+            let person = Person(name: name, photo: imageData)
+            modelContext.insert(person)
+
+            selectedItem = nil
+            selectedImageData = nil
+        }
 }
 
 #Preview {
