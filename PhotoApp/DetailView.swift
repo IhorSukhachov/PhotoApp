@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 
 struct DetailView: View {
@@ -16,6 +17,14 @@ struct DetailView: View {
                 .resizable()
                 .scaledToFit()
                 .padding()
+            
+            if let lat = person.latitude, let lon = person.longitude {
+                // show map here
+            } else {
+                Text("Location unavailable")
+                    .foregroundColor(.gray)
+                    .padding()
+            }
         }
         .navigationTitle(person.name)
         .navigationBarTitleDisplayMode(.inline)
@@ -23,7 +32,7 @@ struct DetailView: View {
 }
 
 #Preview {
-    let person = Person(name: "Test", photo: Data())
+    let person = Person(name: "Test", photo: Data(), latitude: nil, longitude: nil)
        NavigationStack {
            DetailView(person: person)
        }
