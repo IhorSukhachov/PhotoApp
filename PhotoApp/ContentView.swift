@@ -77,7 +77,7 @@ struct ContentView: View {
                 let person = Person(name: name, photo: imageData, latitude: latitude, longitude: longitude)
                 modelContext.insert(person)
             } else {
-                let person = Person(name: name, photo: imageData)
+                let person = Person(name: name, photo: imageData, latitude: nil, longitude: nil)
                 modelContext.insert(person)
             }
 
