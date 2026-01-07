@@ -18,6 +18,8 @@ struct ContentView: View {
     @State private var showingNamePrompt: Bool = false
     @State private var name = ""
     
+    let locationFetcher = LocationFetcher()
+    
     var body: some View {
         NavigationStack {
             List(people) {person in
@@ -35,7 +37,9 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("People")
-
+            .onAppear {
+                locationFetcher.start()
+            }
             .toolbar {
                 PhotosPicker(selection: $selectedItem, matching: .images) {
                     Image(systemName: "plus")
