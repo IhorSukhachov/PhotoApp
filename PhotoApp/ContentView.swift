@@ -73,9 +73,15 @@ struct ContentView: View {
     
     func savePerson() {
             guard let imageData = selectedImageData else { return }
+            if let latitude = locationFetcher.lastKnownLocation?.latitude, let longitude = locationFetcher.lastKnownLocation?.longitude {
+                let person = Person(name: name, photo: imageData, latitude: latitude, longitude: longitude)
+                modelContext.insert(person)
+            } else {
+                let person = Person(name: name, photo: imageData)
+                modelContext.insert(person)
+            }
 
-            let person = Person(name: name, photo: imageData)
-            modelContext.insert(person)
+
 
             selectedItem = nil
             selectedImageData = nil

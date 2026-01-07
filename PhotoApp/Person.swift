@@ -15,8 +15,8 @@ class Person: Identifiable {
     @Attribute(.externalStorage)
     var photo: Data
 
-    var latitude: Double
-    var longitude: Double
+    var latitude: Double?
+    var longitude: Double?
     
     init(name: String, photo: Data, latitude: Double, longitude: Double) {
         self.name = name
